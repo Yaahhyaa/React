@@ -7,6 +7,7 @@ function App() {
       <PeopleContainer />
     </div>
   );
+
 }
 
 export default App;

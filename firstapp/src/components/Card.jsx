@@ -8,7 +8,7 @@ export default function Card({ name, title, imageUri }) {
                 <h4>{title}</h4>
             </div>
 
-            <div className=' bg-green-400 w-full'>
+            <div className=' bg-yellow-400 w-full'>
                 <img src={imageUri} alt='' className='object-cover w-full h-full' />
             </div>
         </div>
