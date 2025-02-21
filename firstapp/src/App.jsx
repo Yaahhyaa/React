@@ -4,7 +4,7 @@ import PeopleContainer from "./components/PeopleContainer";
 function App() {
   return (
     <div>
-      <PeopleContainer />
+      <MoviesAPI />
     </div>
   );
 
