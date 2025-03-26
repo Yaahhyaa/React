@@ -14,13 +14,26 @@ const App = () => {
   const [searchResultsMovies, setSearchResultsMovies] = useState([]);
   const [searchResultsSeries, setSearchResultsSeries] = useState([]);
   const [modalData, setModalData] = useState(null);
+  const [isOnline, setIsOnline] = useState(navigator.onLine);
 
   useEffect(() => {
+    const handleOnline = () => setIsOnline(true);
+    const handleOffline = () => setIsOnline(false);
+
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
+
     fetchMovies("movie");
     fetchMovies("series");
+
+    return () => {
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
+    };
   }, []);
 
   const fetchMovies = async (type) => {
+    if (!isOnline) return;
     const randomTerm = randomSearchTerms[Math.floor(Math.random() * randomSearchTerms.length)];
     try {
       const response = await fetch(`${baseURL}?s=${randomTerm}&type=${type}&apikey=${apiKey}`);
@@ -67,6 +80,7 @@ const App = () => {
 
   return (
     <div className="app">
+      {!isOnline && <div className="offline-warning">Bitte mit Internet verbinden</div>}
       <header className="header">
         <h1 className="logo">Yetflix API</h1>
         <SearchBar onSearch={searchItems} />
